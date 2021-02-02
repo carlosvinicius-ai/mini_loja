@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Loja Style</title>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" type="image-x/png" href="/Projetos/Projeto_miniloja/sneakers.ico">
+    <style>
+        #produtos{
+                max-width: 900px;
+                margin:0 auto;
+                padding:0 2%;
+                display: flex;
+            }
+            
+            #carrinho{
+                max-width: 800px;
+                margin:0 auto;
+                padding:0 2%;
+                display: block;
+            }
+
+            .produto_single img{
+                width:300px;
+                height: 300px;
+                padding:0 20px;
+            }
+
+            button{
+                text-align: center;
+                display: block;
+                line-height: 50px;
+                background-color: #49111c;
+                text-decoration: none;
+                color: #F2F4F3;
+                font-size: 18px;
+                width: 250px;
+                margin-bottom: 40px;
+                margin-left: 20px;
+                border: 0;
+            }
+
+            button:hover{
+                background-color: #180105;
+            }
+
+            p{
+                font-size: 18px;
+                padding-left: 20px;
+            }
+
+    </style>
+
+</head>
+
+<body>
+        
+    <h2>VITRINE</h2>
+
+    <div id="produtos">
+
+    </div><!--produtos-->
+
+    <h2>CARRINHO</h2>
+
+    <div id="carrinho">
+
+    </div><!--carrinho-->
+
+
+    <script>
+
+        const items = [
+
+            {
+                id: 0,
+                nome: 'Air Force 1 - Travis Scott',
+                img: 'af1-travis-scott.jpg',
+                quantidade: 0
+            },
+            {
+                id: 1,
+                nome: 'Yezzy Boost 700',
+                img: 'yezzy_boost_700.jpg',
+                quantidade: 0
+            },
+            {
+                id: 2,
+                nome: 'Air Jordan 1',
+                img: 'Air-Jordan-1.jpg',
+                quantidade: 0
+            },
+            
+
+        ]
+
+        inicializarLoja = () =>{
+
+            var containerProdutos = document.getElementById('produtos');
+            items.map((val)=>{
+ 
+                containerProdutos.innerHTML+= `
+
+                    <div class="produto_single">
+                        <img src="`+val.img+`" />
+                        <p>`+val.nome+`</p>
+                        <button key="`+val.id+`" href="#">Adicionar ao Carrinho!</button>
+                    </div>    
+                `;
+            })
+        }
+
+        inicializarLoja();
+
+        atualizarCarrinho = () =>{
+            var containerCarrinho = document.getElementById('carrinho');
+            containerCarrinho.innerHTML = "";
+            items.map((val)=>{
+                if(val.quantidade > 0){
+                    containerCarrinho.innerHTML+= `
+
+                    <p>`+val.nome+` | quantidade: `+val.quantidade+`</p>
+                    <hr> 
+                      
+                `;
+                }
+            })
+        }
+
+        var links = document.getElementsByTagName("button");
+
+        for(var i = 0; i < links.length; i++){
+            links[i].addEventListener('click', function(){
+                let key = this.getAttribute('key');
+                items[key].quantidade++;
+                atualizarCarrinho();
+                return false;
+            })
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>
